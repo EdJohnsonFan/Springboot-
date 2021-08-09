@@ -21,6 +21,7 @@ import java.util.Random;
 @Api(tags = "医院设置管理")
 @RestController
 @RequestMapping("/admin/hosp/hospitalSet")
+@CrossOrigin
 public class HospitalSetController {
     @Autowired
     private HospitalSetService hospitalSetService;
@@ -90,12 +91,12 @@ public class HospitalSetController {
     //5.根据id获取医院设置
     @GetMapping("getHospSet/{id}")
     public Result getHospSet(@PathVariable Long id){
-        //模拟异常
-        try {
-            int a =1/0;
-        }catch (Exception e){
-            throw new HospitalException("失败",201);
-        }
+//        //模拟异常
+//        try {
+//            int a =1/0;
+//        }catch (Exception e){
+//            throw new HospitalException("失败",201);
+//        }
         HospitalSet hospitalSet = hospitalSetService.getById(id);
         return Result.ok(hospitalSet);
 

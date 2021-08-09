@@ -1,4 +1,4 @@
-package com.johnson.hosp.config;
+package com.johnson.hospital.cmn.config;
 
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import org.mybatis.spring.annotation.MapperScan;
@@ -6,8 +6,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@MapperScan("com.johnson.hosp.mapper")
-public class HospConfig {
+@MapperScan("com.johnson.hospital.cmn.mapper")
+public class CmnConfig {
     /**
      * 分页插件
      */
