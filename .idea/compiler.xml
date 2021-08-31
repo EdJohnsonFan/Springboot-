@@ -8,16 +8,18 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="common_util" />
+        <module name="service_user" />
         <module name="model" />
         <module name="service_util" />
-        <module name="service_user" />
         <module name="service_hosp" />
         <module name="service_cmn" />
+        <module name="hospital-manage" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="common" target="8" />
       <module name="common_util" target="8" />
+      <module name="hospital-manage" target="1.8" />
       <module name="hospital_parent" target="1.8" />
       <module name="model" target="8" />
       <module name="service" target="8" />
@@ -30,6 +32,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="common_util" options="-parameters" />
+      <module name="hospital-manage" options="-parameters" />
       <module name="model" options="-parameters" />
       <module name="service_cmn" options="-parameters" />
       <module name="service_hosp" options="-parameters" />
