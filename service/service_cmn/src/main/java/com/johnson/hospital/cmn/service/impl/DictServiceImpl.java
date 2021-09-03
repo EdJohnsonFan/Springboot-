@@ -9,6 +9,7 @@ import com.johnson.hospital.cmn.service.DictService;
 import com.johnson.hospital.common.result.Result;
 import com.johnson.hosptial.model.cmn.Dict;
 import com.johnson.hosptial.vo.cmn.DictEeVo;
+import com.mysql.jdbc.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
@@ -82,7 +83,43 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements Di
         }
     }
 
+    @Override
+    public String getDictName(String dictCode, String value) {
+        //判断dictcode值，根据value查询
+        if (StringUtils.isNullOrEmpty(dictCode)){
+            //直接根据value查询
+            QueryWrapper<Dict> wrapper =new QueryWrapper<>();
+            wrapper.eq("value", value);
+            Dict dict = baseMapper.selectOne(wrapper);
+            return dict.getName();
+        }else {
+            Dict codeDict = this.getDictByDictCode(dictCode);
+            Long parent_id = codeDict.getId();
+            //根据parent_id查询
+            Dict finalDcit = baseMapper.selectOne(new QueryWrapper<Dict>()
+                    .eq("parent_id", parent_id)
+                    .eq("value", value));
+            return finalDcit.getName();
 
+        }
+    }
+
+    @Override
+    public List<Dict> findByDictCode(String dictCode) {
+        //根据idctcode获取对应id
+        Dict dict = this.getDictByDictCode(dictCode);
+        List<Dict> chlidData = this.findChlidData(dict.getId());
+        return chlidData;
+    }
+
+    //工具方法
+    private Dict getDictByDictCode(String dictCode){
+        //根据dickecode查询dick对象 得到dickid值
+        QueryWrapper<Dict> wrapper =new QueryWrapper<>();
+        wrapper.eq("dict_code", dictCode);
+        Dict codeDict = baseMapper.selectOne(wrapper);
+        return codeDict;
+    }
     //判断id下是否有子节点
     private boolean isChildren(Long id) {
         QueryWrapper<Dict> wrapper = new QueryWrapper<>();
